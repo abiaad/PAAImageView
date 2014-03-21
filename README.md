@@ -11,7 +11,7 @@
 
 ```objective-c
 PAImageView *avatarView = [[PAImageView alloc] initWithFrame:aFrame backgroundProgressColor:[UIColor whiteColor] progressColor:[UIColor lightGrayColor]];
-[self.view addSubview:_image];
+[self.view addSubview:avatarView];
 // Later
-[_image setImageURL:URL];
+[avatarView setImageURL:URL];
 ```

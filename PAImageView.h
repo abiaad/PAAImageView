@@ -10,6 +10,8 @@
 
 @interface PAImageView : UIView
 
+@property (nonatomic, assign, getter = isCacheEnabled) BOOL cacheEnabled;
+
 - (id)initWithFrame:(CGRect)frame backgroundProgressColor:(UIColor *)backgroundProgresscolor progressColor:(UIColor *)progressColor;
 - (void)setImageURL:(NSString *)URL;
 

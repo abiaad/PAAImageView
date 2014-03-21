@@ -1,7 +1,7 @@
 # PAImageView
 ============
 
-**Rounded async imageview downloader based on AFNetworking 2 and lightly cached
+**Rounded async imageview downloader based on AFNetworking 2 and lightly cached**
 
 ## Snapshot
 

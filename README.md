@@ -15,3 +15,14 @@ PAImageView *avatarView = [[PAImageView alloc] initWithFrame:aFrame backgroundPr
 // Later
 [avatarView setImageURL:URL];
 ```
+
+**That's all**
+
+## Contact
+
+[Pierre Abi-aad](http://github.com/abiaad)
+[@abiaad](https://twitter.com/abiaad)
+
+## License
+
+PAImageView is available under the MIT license.

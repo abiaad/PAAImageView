@@ -81,7 +81,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
         
         _progressLayer = [CAShapeLayer layer];
         _progressLayer.path         = _backgroundLayer.path;
-        _progressLayer.strokeColor  = [[UIColor colorWithRed:240/255.f green:85/255.f blue:97/255.f alpha:1.f] CGColor];
+        _progressLayer.strokeColor  = [progressColor CGColor];
         _progressLayer.fillColor    = _backgroundLayer.fillColor;
         _progressLayer.lineWidth    = _backgroundLayer.lineWidth;
         _progressLayer.strokeEnd    = 0.f;

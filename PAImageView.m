@@ -61,6 +61,8 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
         self.layer.cornerRadius     = CGRectGetWidth(self.bounds)/2.f;
         self.layer.masksToBounds    = NO;
         self.clipsToBounds          = YES;
+        _cacheEnabled               = YES;
+
         _cache = [[SPMImageCache alloc] init];
         
         CGPoint arcCenter           = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));

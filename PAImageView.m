@@ -119,7 +119,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
         __weak __typeof(self)weakSelf = self;
         AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
             CGFloat progress = (CGFloat)totalBytesRead/(CGFloat)totalBytesExpectedToRead;
             
             _progressLayer.strokeEnd        = progress;

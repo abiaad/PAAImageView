@@ -1,4 +1,4 @@
-Pod::Spec.new do |spec|
+Pod::Spec.new do |s|
   s.name         = "PAImageView"
   s.version      = "0.0.1"
   s.summary      = "Rounded async imageview downloader based on AFNetworking 2 and lightly cached."

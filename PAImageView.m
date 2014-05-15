@@ -7,7 +7,7 @@
 //
 
 #import "PAImageView.h"
-#import "AFNetworking/AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
 #pragma mark - Utils
 
@@ -174,26 +174,24 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
     }
     else
     {
-        __weak __typeof(self)weakSelf = self;
-        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
-        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            CGFloat progress = (CGFloat)totalBytesRead/(CGFloat)totalBytesExpectedToRead;
-            
-            self.progressLayer.strokeEnd        = progress;
-            self.backgroundLayer.strokeStart    = progress;
-        }];
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            UIImage *image = responseObject;
-            [weakSelf updateWithImage:image animated:YES];
-            if(self.cacheEnabled)
-            {
-                [self.cache setImage:responseObject forURL:URL];
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Image error: %@", error);
-        }];
-        [requestOperation start];
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadWithURL:imageURL
+                     options:0
+                    progress:^(NSInteger receivedSize, NSInteger expectedSize){
+
+                        CGFloat progress = (CGFloat)receivedSize/(CGFloat)expectedSize;
+
+                        self.progressLayer.strokeEnd        = progress;
+                        self.backgroundLayer.strokeStart    = progress;
+
+                    }completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished){
+                        if (image){
+                            [weakSelf updateWithImage:image animated:YES];
+                            if(self.cacheEnabled){
+                                [self.cache setImage:responseObject forURL:URL];
+                            }
+                        }
+                    }];
     }
 }
 

@@ -3,6 +3,8 @@
 
 **Rounded async imageview downloader based on AFNetworking 2 and lightly cached**
 
+[Swift version here](https://github.com/abiaad/PASImageView)
+
 ## Snapshot
 
 ![Snapshop PASwitch](https://raw.github.com/abiaad/paimageview/master/snapshot.gif)

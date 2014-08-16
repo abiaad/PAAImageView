@@ -26,5 +26,8 @@
 
 - (id)initWithFrame:(CGRect)frame backgroundProgressColor:(UIColor *)backgroundProgresscolor progressColor:(UIColor *)progressColor;
 - (void)setImageURL:(NSURL *)URL;
+- (void)setImage:(UIImage *)image;
+
+- (void)setBackgroundWidth:(CGFloat)width;
 
 @end

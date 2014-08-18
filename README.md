@@ -18,6 +18,16 @@ PAImageView *avatarView = [[PAImageView alloc] initWithFrame:aFrame backgroundPr
 [avatarView setImageURL:URL];
 ```
 
+## Update
+
+1. You can load image using resources or another source (for example contact image);
+
+You need use next method for load from resource
+[avatarView setImage:[UIImage imageNamed:"test.png"]];
+
+2. You can set width for background circle
+[avatarView setBackgroundWidth:10.f];
+
 **That's all**
 
 ## Contact

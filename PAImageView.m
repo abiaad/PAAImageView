@@ -197,6 +197,19 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
     }
 }
 
+
+- (void)setImage:(UIImage *)image {
+    UIImage *cachedImage = image;
+    if (cachedImage) {
+        [self updateWithImage:cachedImage animated:NO];
+    }
+}
+
+- (void)setBackgroundWidth:(CGFloat)width {
+    self.backgroundLayer.lineWidth = width;
+    self.progressLayer.lineWidth = self.backgroundLayer.lineWidth;
+}
+
 - (void)updateWithImage:(UIImage *)image animated:(BOOL)animated
 {
     CGFloat duration    = (animated) ? 0.3 : 0.f;

@@ -1,5 +1,5 @@
 //
-//  SPMImageAsyncView.h
+//  PAAImageView.h
 //  ImageDL
 //
 //  Created by Pierre Abi-aad on 21/03/2014.
@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PAImageViewDelegate <NSObject>
+@protocol PAAImageViewDelegate <NSObject>
 @optional
-- (void)paImageViewDidTapped:(id)view;
+- (void)paaImageViewDidTapped:(id)view;
 @end
 
-@interface PAImageView : UIView
+@interface PAAImageView : UIView
 
-@property (nonatomic, weak) id<PAImageViewDelegate> delegate;
+@property (nonatomic, weak) id<PAAImageViewDelegate> delegate;
 
 @property (nonatomic, assign, getter = isCacheEnabled) BOOL cacheEnabled;
 @property (nonatomic, strong) UIImage *placeHolderImage;

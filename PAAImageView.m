@@ -1,12 +1,12 @@
 //
-//  SPMImageAsyncView.m
+//  PAAImageView.m
 //  ImageDL
 //
 //  Created by Pierre Abi-aad on 21/03/2014.
 //  Copyright (c) 2014 Pierre Abi-aad. All rights reserved.
 //
 
-#import "PAImageView.h"
+#import "PAAImageView.h"
 #import "AFNetworking/AFNetworking.h"
 
 #pragma mark - Utils
@@ -14,7 +14,7 @@
 #define rad(degrees) ((degrees) / (180.0 / M_PI))
 #define kLineWidth 3.f
 
-NSString * const spm_identifier = @"spm.imagecache.tg";
+NSString * const paa_identifier = @"paa.imagecache.tg";
 
 #pragma mark - SPMImageCache interface
 
@@ -30,7 +30,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
 
 #pragma mark - SPMImageAsyncView interface
 
-@interface PAImageView ()
+@interface PAAImageView ()
 
 @property (nonatomic, strong) CAShapeLayer *backgroundLayer;
 @property (nonatomic, strong) CAShapeLayer *progressLayer;
@@ -44,7 +44,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
 #pragma mark - SPMImageAsyncView
 
 
-@implementation PAImageView
+@implementation PAAImageView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -59,7 +59,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
 
 - (id)initWithFrame:(CGRect)frame
 {
-    return [[PAImageView alloc] initWithFrame:frame
+    return [[PAAImageView alloc] initWithFrame:frame
                       backgroundProgressColor:[UIColor whiteColor]
                                 progressColor:[UIColor blueColor]];
 }
@@ -137,9 +137,9 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
 
 - (void)handleSingleTap:(id)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(paImageViewDidTapped:)])
+    if (self.delegate && [self.delegate respondsToSelector:@selector(paaImageViewDidTapped:)])
     {
-        [self.delegate paImageViewDidTapped:self];
+        [self.delegate paaImageViewDidTapped:self];
     }
 }
 
@@ -256,9 +256,9 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
         NSString *rootCachePath = [paths firstObject];
 
         self.fileManager    = [NSFileManager defaultManager];
-        self.cachePath      = [rootCachePath stringByAppendingPathComponent:spm_identifier];
+        self.cachePath      = [rootCachePath stringByAppendingPathComponent:paa_identifier];
         
-        if(![self.fileManager fileExistsAtPath:spm_identifier])
+        if(![self.fileManager fileExistsAtPath:paa_identifier])
         {
             [self.fileManager createDirectoryAtPath:self.cachePath withIntermediateDirectories:NO attributes:nil error:nil];
         }
@@ -292,7 +292,7 @@ NSString * const spm_identifier = @"spm.imagecache.tg";
     NSString *path = [self.cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%u.%@", URL.hash, fileExtension]];
     if([self.fileManager fileExistsAtPath:path])
     {
-        return [UIImage imageWithData:[NSData dataWithContentsOfFile:path]];
+        return [UIImage imageWithContentsOfFile:path];
     }
     return nil;
 }

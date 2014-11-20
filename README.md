@@ -1,4 +1,4 @@
-# PAImageView
+# PAAImageView
 ============
 
 **Rounded async imageview downloader based on AFNetworking 2 and lightly cached**
@@ -7,12 +7,12 @@
 
 ## Snapshot
 
-![Snapshop PASwitch](https://raw.github.com/abiaad/paimageview/master/snapshot.gif)
+![Snapshop PASwitch](https://raw.github.com/abiaad/paaimageview/master/snapshot.gif)
 
 ## Usage
 
 ```objective-c
-PAImageView *avatarView = [[PAImageView alloc] initWithFrame:aFrame backgroundProgressColor:[UIColor whiteColor] progressColor:[UIColor lightGrayColor]];
+PAAImageView *avatarView = [[PAAImageView alloc] initWithFrame:aFrame backgroundProgressColor:[UIColor whiteColor] progressColor:[UIColor lightGrayColor]];
 [self.view addSubview:avatarView];
 // Later
 [avatarView setImageURL:URL];

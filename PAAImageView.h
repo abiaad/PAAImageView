@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFAmazonS3Manager.h"
+#import <AWSiOSSDKv2/S3.h>
+#import <AWSiOSSDKv2/AWSS3TransferManager.h>
+
 
 @protocol PAAImageViewDelegate <NSObject>
 @optional
@@ -30,4 +34,6 @@
 
 - (void)setBackgroundWidth:(CGFloat)width;
 
+//for S3
+-(void)setAmazonAcessKey:(NSString*)yourAWSAcessKey and:(NSString*)yourAWSSecretKey and:(NSString*)yourAWSBucketKey and:(NSString*)s3_link;
 @end

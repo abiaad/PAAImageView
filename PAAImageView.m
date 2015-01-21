@@ -197,6 +197,48 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
     }
 }
 
+-(void)setAmazonAcessKey:(NSString*)yourAWSAcessKey and:(NSString*)yourAWSSecretKey and:(NSString*)yourAWSBucketKey and:(NSString*)s3_link{
+    
+    UIImage *cachedImage = (self.cacheEnabled) ? [self.cache getImageForURL:s3_link] : nil;
+    if(cachedImage)
+    {
+        [self updateWithImage:cachedImage animated:NO];
+    }
+    else{
+        AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:yourAWSAcessKey secret:yourAWSSecretKey];
+        s3Manager.requestSerializer.region = AFAmazonS3USWest1Region;
+        s3Manager.requestSerializer.bucket = yourAWSBucketKey;
+        s3Manager.responseSerializer = [AFImageResponseSerializer serializer];
+        s3Manager.responseSerializer = [AFImageResponseSerializer serializer];
+        NSSet *set = s3Manager.responseSerializer.acceptableContentTypes;
+        s3Manager.responseSerializer.acceptableContentTypes = [set setByAddingObject:@"binary/octet-stream"];
+        
+        __weak __typeof(self)weakSelf = self;
+        
+        [s3Manager getObjectWithPath:s3_link progress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            NSLog(@"%u", bytesRead);
+            CGFloat progress = (CGFloat)totalBytesRead/(CGFloat)totalBytesExpectedToRead;
+            
+            self.progressLayer.strokeEnd        = progress;
+            self.backgroundLayer.strokeStart    = progress;
+            
+        } success:^(id responseObject, NSData *responseData) {
+            
+            UIImage *image = responseObject;
+            [weakSelf updateWithImage:image animated:YES];
+            
+            if(self.cacheEnabled)
+            {
+                [self.cache setImage:responseObject forURL:s3_link];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+    }
+}
+
+
 
 - (void)setImage:(UIImage *)image {
     UIImage *cachedImage = image;

@@ -8,6 +8,11 @@
 
 #import "PAAImageView.h"
 #import "AFNetworking/AFNetworking.h"
+#import "AFAmazonS3Manager.h"
+#import <AWSiOSSDKv2/S3.h>
+#import <AWSiOSSDKv2/AWSS3TransferManager.h>
+
+
 
 #pragma mark - Utils
 

@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AFAmazonS3Manager.h"
-#import <AWSiOSSDKv2/S3.h>
-#import <AWSiOSSDKv2/AWSS3TransferManager.h>
 
 
 @protocol PAAImageViewDelegate <NSObject>

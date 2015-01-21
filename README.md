@@ -18,7 +18,7 @@ PAAImageView *avatarView = [[PAAImageView alloc] initWithFrame:aFrame background
 // Later, can send simple URL request OR Amazon S3
 
 [avatarView setImageURL:URL]; //URL
-[avatarView setAmazonAcessKey:AWS_Access_Key and:AWS_Secret_Key and:AWS_Bucket_Name and:tempDetail.customer.s3_link]; //via S3
+[avatarView setS3ImageLink:tempDetail.customer.s3_link withAccessKey:AWS_Access_Key withBucketKey:AWS_Bucket_Name withSecretKey:AWS_Secret_Key];
 ```
 
 ## Update

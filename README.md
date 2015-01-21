@@ -19,6 +19,7 @@ PAAImageView *avatarView = [[PAAImageView alloc] initWithFrame:aFrame background
 
 [avatarView setImageURL:URL]; //URL
 [avatarView setS3ImageLink:tempDetail.customer.s3_link withAccessKey:AWS_Access_Key withBucketKey:AWS_Bucket_Name withSecretKey:AWS_Secret_Key];
+ avatarView.region = AFAmazonS3USWest2Region; //default is AFAmazonS3USWest1Region
 ```
 
 ## Update

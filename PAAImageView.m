@@ -13,7 +13,6 @@
 #import <AWSiOSSDKv2/AWSS3TransferManager.h>
 
 
-
 #pragma mark - Utils
 
 #define rad(degrees) ((degrees) / (180.0 / M_PI))
@@ -65,8 +64,8 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
 - (id)initWithFrame:(CGRect)frame
 {
     return [[PAAImageView alloc] initWithFrame:frame
-                      backgroundProgressColor:[UIColor whiteColor]
-                                progressColor:[UIColor blueColor]];
+                       backgroundProgressColor:[UIColor whiteColor]
+                                 progressColor:[UIColor blueColor]];
 }
 
 - (id)initWithFrame:(CGRect)frame backgroundProgressColor:(UIColor *)backgroundProgresscolor progressColor:(UIColor *)progressColor
@@ -213,11 +212,15 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
     }
     else{
         AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:accessKey secret:secretKey];
-        s3Manager.requestSerializer.region = AFAmazonS3USWest1Region;
         s3Manager.requestSerializer.bucket = bucketKey;
         s3Manager.responseSerializer = [AFImageResponseSerializer serializer];
         NSSet *set = s3Manager.responseSerializer.acceptableContentTypes;
         s3Manager.responseSerializer.acceptableContentTypes = [set setByAddingObject:@"binary/octet-stream"];
+        
+        if(self.region != nil){
+            s3Manager.requestSerializer.region = self.region;}
+        else{
+            s3Manager.requestSerializer.region = AFAmazonS3USWest1Region;}
         
         __weak __typeof(self)weakSelf = self;
         
@@ -300,7 +303,7 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
     {
         NSArray  *paths         = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *rootCachePath = [paths firstObject];
-
+        
         self.fileManager    = [NSFileManager defaultManager];
         self.cachePath      = [rootCachePath stringByAppendingPathComponent:paa_identifier];
         

@@ -202,18 +202,19 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
     }
 }
 
--(void)setAmazonAcessKey:(NSString*)yourAWSAcessKey and:(NSString*)yourAWSSecretKey and:(NSString*)yourAWSBucketKey and:(NSString*)s3_link{
+-(void)setS3ImageLink:(NSString*)s3_link withAccessKey:(NSString *)accessKey withBucketKey:(NSString*)bucketKey withSecretKey:(NSString*)secretKey{
     
-    UIImage *cachedImage = (self.cacheEnabled) ? [self.cache getImageForURL:s3_link] : nil;
+    NSURL *url = [NSURL URLWithString:s3_link];
+    
+    UIImage *cachedImage = (self.cacheEnabled) ? [self.cache getImageForURL:url] : nil;
     if(cachedImage)
     {
         [self updateWithImage:cachedImage animated:NO];
     }
     else{
-        AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:yourAWSAcessKey secret:yourAWSSecretKey];
+        AFAmazonS3Manager *s3Manager = [[AFAmazonS3Manager alloc] initWithAccessKeyID:accessKey secret:secretKey];
         s3Manager.requestSerializer.region = AFAmazonS3USWest1Region;
-        s3Manager.requestSerializer.bucket = yourAWSBucketKey;
-        s3Manager.responseSerializer = [AFImageResponseSerializer serializer];
+        s3Manager.requestSerializer.bucket = bucketKey;
         s3Manager.responseSerializer = [AFImageResponseSerializer serializer];
         NSSet *set = s3Manager.responseSerializer.acceptableContentTypes;
         s3Manager.responseSerializer.acceptableContentTypes = [set setByAddingObject:@"binary/octet-stream"];
@@ -221,7 +222,6 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
         __weak __typeof(self)weakSelf = self;
         
         [s3Manager getObjectWithPath:s3_link progress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            NSLog(@"%u", bytesRead);
             CGFloat progress = (CGFloat)totalBytesRead/(CGFloat)totalBytesExpectedToRead;
             
             self.progressLayer.strokeEnd        = progress;
@@ -234,11 +234,10 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
             
             if(self.cacheEnabled)
             {
-                [self.cache setImage:responseObject forURL:s3_link];
+                [self.cache setImage:responseObject forURL:url];
             }
             
         } failure:^(NSError *error) {
-            NSLog(@"%@", error);
         }];
     }
 }

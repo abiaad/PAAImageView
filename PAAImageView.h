@@ -32,5 +32,6 @@
 - (void)setBackgroundWidth:(CGFloat)width;
 
 //for S3
--(void)setAmazonAcessKey:(NSString*)yourAWSAcessKey and:(NSString*)yourAWSSecretKey and:(NSString*)yourAWSBucketKey and:(NSString*)s3_link;
+-(void)setS3ImageLink:(NSString*)s3_link withAccessKey:(NSString *)accessKey withBucketKey:(NSString*)bucketKey withSecretKey:(NSString*)secretKey;
+
 @end

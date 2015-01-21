@@ -14,8 +14,12 @@
 ```objective-c
 PAAImageView *avatarView = [[PAAImageView alloc] initWithFrame:aFrame backgroundProgressColor:[UIColor whiteColor] progressColor:[UIColor lightGrayColor]];
 [self.view addSubview:avatarView];
-// Later
-[avatarView setImageURL:URL];
+ 
+// Later, can send simple URL request OR Amazon S3
+
+[avatarView setImageURL:URL]; //URL
+[avatarView setS3ImageLink:tempDetail.customer.s3_link withAccessKey:AWS_Access_Key withBucketKey:AWS_Bucket_Name withSecretKey:AWS_Secret_Key];
+ avatarView.region = AFAmazonS3USWest2Region; //default is AFAmazonS3USWest1Region
 ```
 
 ## Update
@@ -31,7 +35,7 @@ You need use next method for load from resource
 **That's all**
 
 ## Contact
-
+[Solomon Bier] (https://github.com/SolomonBier)
 [Pierre Abi-aad](http://github.com/abiaad)
 [@abiaad](https://twitter.com/abiaad)
 

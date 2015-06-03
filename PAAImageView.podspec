@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "PAAImageView"
-  s.version      = "1.0.0"
+  s.version      = "1.1.0"
   s.summary      = "Rounded async imageview downloader based on AFNetworking 2 and lightly cached."
   s.homepage     = "https://github.com/abiaad/PAAImageView"
   s.license      = { :type => 'MIT' }

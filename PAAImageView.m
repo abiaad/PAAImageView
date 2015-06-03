@@ -166,6 +166,11 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
 
 - (void)setImageURL:(NSURL *)URL
 {
+    [self setImageURL:URL completion:nil];
+}
+
+- (void)setImageURL:(NSURL *)URL completion:(void (^)(NSError *error))completionBlock {
+    
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:URL];
     UIImage *cachedImage = (self.cacheEnabled) ? [self.cache getImageForURL:URL] : nil;
     if(cachedImage)
@@ -190,8 +195,10 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
             {
                 [self.cache setImage:responseObject forURL:URL];
             }
+            if(completionBlock) completionBlock(nil);
+            
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Image error: %@", error);
+            if(completionBlock) completionBlock(error);
         }];
         [requestOperation start];
     }
@@ -283,13 +290,13 @@ NSString * const paa_identifier = @"paa.imagecache.tg";
     else
         return;
     
-    [imageData writeToFile:[self.cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%u.%@", URL.hash, fileExtension]] atomically:YES];
+    [imageData writeToFile:[self.cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.%@", (unsigned long)URL.hash, fileExtension]] atomically:YES];
 }
 
 - (UIImage *)getImageForURL:(NSURL *)URL
 {
     NSString *fileExtension = [URL pathExtension];//[[URL componentsSeparatedByString:@"."] lastObject];
-    NSString *path = [self.cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%u.%@", URL.hash, fileExtension]];
+    NSString *path = [self.cachePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%lu.%@", URL.hash, fileExtension]];
     if([self.fileManager fileExistsAtPath:path])
     {
         return [UIImage imageWithContentsOfFile:path];

@@ -16,6 +16,10 @@ PAAImageView *avatarView = [[PAAImageView alloc] initWithFrame:aFrame background
 [self.view addSubview:avatarView];
 // Later
 [avatarView setImageURL:URL];
+// or
+[avatarView setImageURL:URL completion:^(NSError *error) {
+        // Handle your error
+}];
 ```
 
 ## Update
